@@ -6,31 +6,51 @@
 
 {% block content %}
 
-    <h1>Market Page</h1>
-    <table class="table table-hover table-dark">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">NAME</th>
-          <th scope="col">BARCODE</th>
-          <th scope="col">PRICE</th>
-          <th scope="col">OPTIONS</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in items %}
-          <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.barcode }}</td>
-            <td>${{ item.price }}</td>
-            <td>
-              <button class="btn btn-outline btn-info">More info</button>
-              <button class="btn btn-outline btn-success">Purchase</button>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-8">
+        <h1 style="margin-top: 10px;">Available Items</h1>
+        <p>Browse items below to add them to your collection</p>
+      </div>
+      <div class="col-4">
+        <h1 style="margin-top: 10px;">My Items</h1>
+        <p>Manage your items below</p>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-8">
+        <table class="table table-hover table-dark">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">NAME</th>
+              <th scope="col">BARCODE</th>
+              <th scope="col">PRICE</th>
+              <th scope="col">OPTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            {% include 'includes/items_modals.html' %}
+              <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.barcode }}</td>
+                <td>${{ item.price }}</td>
+                <td>
+                  <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ item.id }}">More info</button>
+                  <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#Modal-PurchaseConfirm-{{ item.id }}">Purchase</button>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-4">My Items</div>
+    </div>
+
+
 
 {% endblock %}
